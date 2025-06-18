@@ -10,13 +10,20 @@ config_version=5
 
 [application]
 
-config/name="hackclub.Simulation3D"
+config/name="hackclub.simulation3D"
+run/main_scene="res://node_3d.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+3d/default_gravity=0.0
+3d/default_gravity_vector=Vector3(0, 0, 0)
 
 [rendering]
 
