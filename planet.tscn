@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://uhsrlmdmgi1f"]
+
+[ext_resource type="Script" uid="uid://15lj6aym025d" path="res://planet.gd" id="1_a75xc"]
+[ext_resource type="Texture2D" uid="uid://cah7sgalkhpkm" path="res://white-circle-free-png-3289399007.png" id="2_a75xc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mtr83"]
+radius = 43.0116
+
+[node name="Planetwhite" type="RigidBody2D"]
+mass = 1000.0
+gravity_scale = 0.0
+linear_damp = 0.1
+angular_velocity = 0.349066
+script = ExtResource("1_a75xc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0609375, 0.0609375)
+texture = ExtResource("2_a75xc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mtr83")
