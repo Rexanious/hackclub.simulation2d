@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://mku3x1o1sce"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+rotation = 0.785398
+scale = Vector2(1.41421, 1)
+transform = Transform2D(1, 1, 0, 1, 0, 0)
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
