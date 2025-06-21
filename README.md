@@ -1,4 +1,4 @@
-# Planet Gravity Simulator
+# 2D physics simulation for planets
 
 A 2D physics sandbox where celestial bodies attract each other with realistic gravity. Made with Godot 4.
 
@@ -20,6 +20,8 @@ A 2D physics sandbox where celestial bodies attract each other with realistic gr
 |--------|-------------------|
 | Spawn planet | Space bar         |
 | Zoom | Mouse wheel       |
+
+(controls subject to change later)
 
 ## Configuration
 Edit `CelestialBody.gd` to adjust:
