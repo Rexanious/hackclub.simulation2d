@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-box2d/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
 
 [global_group]
 
@@ -43,10 +43,12 @@ MOUSE_BUTTON_WHEEL_DOWN={
 
 [physics]
 
+2d/physics_engine="Box2D"
 3d/physics_engine="Jolt Physics"
 3d/default_gravity=0.0
 3d/default_gravity_vector=Vector3(0, 0, 0)
-2d/default_gravity=1.0
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
 
 [rendering]
 

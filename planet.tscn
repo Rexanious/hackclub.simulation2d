@@ -9,8 +9,9 @@ radius = 43.0116
 [node name="Planetwhite" type="RigidBody2D"]
 mass = 1000.0
 gravity_scale = 0.0
-linear_damp = 0.1
-angular_velocity = 0.349066
+custom_integrator = true
+continuous_cd = 1
+contact_monitor = true
 script = ExtResource("1_a75xc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
