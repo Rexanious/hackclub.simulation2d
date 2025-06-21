@@ -8,6 +8,7 @@ func _ready():
 	linear_velocity = initial_velocity
 	gravity_scale = 0.0  # Disable default gravity
 	$Sprite2D.scale = Vector2.ONE * sqrt(mass) * 0.03
+	$CollisionShape2D.scale = Vector2.ONE * sqrt(mass) * 0.489
 	contact_monitor = true
 	max_contacts_reported = 1
 	body_entered.connect(_on_collision)
