@@ -6,13 +6,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtr83"]
 radius = 43.0116
 
-[node name="Planetwhite" type="RigidBody2D"]
-mass = 1000.0
+[node name="Planetwhite" type="RigidBody2D" groups=["celestial_bodies"]]
+mass = 100000.0
 gravity_scale = 0.0
 custom_integrator = true
 contact_monitor = true
 script = ExtResource("1_a75xc")
-initial_velocity = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0609375, 0.0609375)

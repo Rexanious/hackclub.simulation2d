@@ -3,6 +3,8 @@ extends Control
 @onready var pause_button = $VBoxContainer/HBoxContainer/PauseButton
 @onready var play_button = $VBoxContainer/HBoxContainer/PlayButton
 
+@onready var option_button = $VBoxContainer/HBoxContainer3/OptionButton
+
 @onready var mass_slider = $VBoxContainer/MassSlider
 @onready var mass_label = $VBoxContainer/MassLabel
 
@@ -12,6 +14,7 @@ extends Control
 @onready var speed_50x = $VBoxContainer/HBoxContainer2/Speed50x
 
 func _ready():
+	
 	pause_button.pressed.connect(_on_pause_pressed)
 	play_button.pressed.connect(_on_play_pressed)
 	
