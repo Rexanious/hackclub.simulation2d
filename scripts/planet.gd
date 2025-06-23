@@ -1,14 +1,9 @@
 extends RigidBody2D
-
-@export var initial_velocity := Vector2(0, 0)
-var G := 2000.0
+var G := 1000.0
 
 func _ready():
 	add_to_group("celestial_bodies")
-	linear_velocity = initial_velocity
-	gravity_scale = 0.0  # Disable default gravity
-	$Sprite2D.scale = Vector2.ONE * sqrt(mass) * 0.03
-	$CollisionShape2D.scale = Vector2.ONE * sqrt(mass) * 0.489
+	gravity_scale = 0.0
 	contact_monitor = true
 	max_contacts_reported = 1
 	body_entered.connect(_on_collision)
@@ -23,5 +18,4 @@ func _physics_process(delta):
 	apply_central_force(total_force * delta * 60.0)
 
 func _on_collision(body: Node):
-
-	apply_central_impulse(-linear_velocity * 0.7)
+	apply_central_impulse(-linear_velocity * 50)

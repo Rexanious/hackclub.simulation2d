@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dofoaiffkao7b"]
+
+[ext_resource type="Shader" uid="uid://6c8mfs26gu2g" path="res://shader scripts/planet_stable.gdshader" id="2_bbf6g"]
+[ext_resource type="Texture2D" uid="uid://cah7sgalkhpkm" path="res://images/white-circle-free-png-3289399007.png" id="2_qjmsr"]
+[ext_resource type="Script" uid="uid://dt7ien17clcbn" path="res://scripts/planetwhite_stable.gd" id="2_sp06e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxlhp"]
+shader = ExtResource("2_bbf6g")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mtr83"]
+radius = 43.0116
+
+[node name="Planetwhite Stable" type="RigidBody2D" groups=["celestial_bodies"]]
+mass = 10000.0
+gravity_scale = 0.0
+freeze = true
+script = ExtResource("2_sp06e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rxlhp")
+scale = Vector2(0.0609375, 0.0609375)
+texture = ExtResource("2_qjmsr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mtr83")
+
+[node name="Highlight" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rxlhp")
+scale = Vector2(0.0609375, 0.0609375)
+texture = ExtResource("2_qjmsr")
