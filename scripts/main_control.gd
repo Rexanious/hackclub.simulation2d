@@ -39,3 +39,6 @@ func _on_exit_pressed():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_on_exit_pressed()
+
+func _on_github_pressed() -> void:
+	OS.shell_open("https://github.com/Rexanious/hackclub.simulation2d")
