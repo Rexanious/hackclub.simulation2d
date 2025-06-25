@@ -1,39 +1,33 @@
 extends Node2D
-
-@export var body_scene : PackedScene  # Assign CelestialBody.tscn in Inspector
+const G:= 1000.0
+@export var body_scene : PackedScene
 @export var default_mass := 10000.0
 @export var planet_stable_scene : PackedScene
 @onready var velocity_ui = $UI/Control
-@onready var trajectory_line = $TrajectoryLine
-@onready var speed = $UI/Control/SpeedSlider.value 
-var prediction_cooldown := 0.0
-var prediction_steps := 200
-var prediction_delta := 0.1
+@onready var speed = $UI/Control/SpeedSlider.value
 var max_distance := 5000.0
-var trajectory_visible := true
 var delete_mode := false
 var hovered_planet: RigidBody2D = null
+@onready var label = Label.new()
 
 func _ready():
 	$UI/Control/DeleteButton.toggled.connect(_on_delete_button_toggled)
 	update_cursor()
-	trajectory_line.default_color = Color(0.8, 0.8, 1.0, 0.7)
-	trajectory_line.width = 2.0
-	trajectory_line.antialiased = true
+	add_child(label)
+	label.add_theme_font_size_override("font_size", 24)
+	label.position = Vector2(20, 20)
 
 func _physics_process(_delta):
-	# Update hover detection
 	if delete_mode:
 		check_planet_hover()
-	if trajectory_visible:
-		update_trajectory()
-	if !trajectory_visible: 
-		return
-	# Only update trajectory every 3 frames
-	prediction_cooldown += _delta
-	if prediction_cooldown > 0.05:  # 20 updates per second
-		prediction_cooldown = 0.0
-		update_trajectory()
+	var mouse_pos = get_global_mouse_position()
+	var nearest_planet = get_nearest_planet(mouse_pos)
+	
+	if nearest_planet:
+		var distance = mouse_pos.distance_to(nearest_planet.global_position)
+		var orbital_velocity = calculate_orbital_velocity(nearest_planet.mass, distance)
+		print("Orbital velocity needed: ", orbital_velocity, " px/s")
+		label.text = "Orbital Velocity: %.1f px/s" % orbital_velocity
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("spawn_planet"):
@@ -42,8 +36,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		new_body.mass = default_mass
 		new_body.linear_velocity = velocity_ui.velocity_vector
 		add_child(new_body)
-		if trajectory_visible:
-			update_trajectory()
 	if event.is_action_pressed("spawn_sun"):
 		var new_sun = planet_stable_scene.instantiate()
 		new_sun.global_position = get_global_mouse_position()
@@ -54,7 +46,6 @@ func _on_delete_button_toggled(is_pressed: bool):
 	delete_mode = is_pressed
 	update_cursor()
 	
-	# Visual feedback
 	if delete_mode:
 		print("Delete mode activated")
 	else:
@@ -63,7 +54,7 @@ func _on_delete_button_toggled(is_pressed: bool):
 
 func update_cursor():
 	if delete_mode:
-		Input.set_custom_mouse_cursor(preload("res://images/cursor_delete.png"), Input.CURSOR_ARROW, Vector2(100, 100))
+		Input.set_custom_mouse_cursor(preload("res://images/cursor_delete.png"), Input.CURSOR_ARROW, Vector2(40, 40))
 	else:
 		Input.set_custom_mouse_cursor(null)
 
@@ -95,59 +86,24 @@ func check_planet_hover():
 
 func delete_planet(planet: RigidBody2D):
 	print("Deleting planet at ", planet.position)
-	# Remove planet
 	planet.queue_free()
 	hovered_planet = null
 
-func update_trajectory():
-  # Clear previous points
-	trajectory_line.clear_points()
+func get_nearest_planet(position: Vector2) -> Node2D:
+	var nearest = null
+	var min_dist = INF
 	
-	# Starting position (mouse position)
-	var start_pos := get_global_mouse_position()
-	trajectory_line.add_point(start_pos)
-# Get initial velocity from your velocity control
-	var initial_velocity: Vector2 = get_node("planet").velocity  # Replace with your actual velocity source
+	for planet in get_tree().get_nodes_in_group("celestial_bodies"):
+		var dist = position.distance_to(planet.global_position)
+		if dist < min_dist:
+			min_dist = dist
+			nearest = planet
 	
-	# Get planet mass (use default or from UI)
-	var mass := 1000.0  # Replace with actual mass if available
-	
-	# Simulation variables
-	var position := start_pos
-	var velocity := initial_velocity
-	
-	# Simulate trajectory
-	for i in range(prediction_steps):
-		# Calculate gravitational acceleration from all planets
-		var acceleration := Vector2.ZERO
-		
-		for planet in get_tree().get_nodes_in_group("planets"):
-			# Skip planets without position or mass
-			if !is_instance_valid(planet) or !planet.has_method("get_position"):
-				continue
-				
-			var planet_pos = planet.global_position
-			var planet_mass = planet.mass if planet.has_method("get_mass") else 1000.0
-			
-			# Calculate direction and distance
-			var dir = planet_pos - position
-			var distance_squared = dir.length_squared()
-			
-			# Avoid division by zero
-			if distance_squared < 1.0:
-				distance_squared = 1.0
-				
-			# Calculate gravitational acceleration
-			var force_magnitude = 1000.0 * planet_mass / distance_squared
-			acceleration += dir.normalized() * force_magnitude
-		
-		# Update physics
-		velocity += acceleration * 0.1
-		position += velocity * 0.1
-		
-		# Add point to trajectory
-		trajectory_line.add_point(position)
-		
-		# Stop if we've gone too far
-		if position.distance_to(start_pos) > 2000:
-			break
+	return nearest
+
+func calculate_orbital_velocity(planet_mass: float, distance: float) -> float:
+	# Simple orbital velocity formula: v = sqrt(G * M / r)
+	return sqrt(G * planet_mass / max(1.0, distance))
+
+func _on_backbutton_pressed() -> void:
+	SceneTransition.change_scene("res://Scenes/main_menu.tscn") # Replace with function body.

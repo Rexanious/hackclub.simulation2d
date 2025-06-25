@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="hackclub.simulation2D"
-run/main_scene="uid://mku3x1o1sce"
+run/main_scene="uid://b7cp1xgv63ikt"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+SceneTransition="*res://Scenes/scene_transition.tscn"
 
 [editor_plugins]
 
@@ -88,3 +88,5 @@ down={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
+anti_aliasing/quality/msaa_2d=1

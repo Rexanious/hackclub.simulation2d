@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dofoaiffkao7b"]
+[gd_scene load_steps=7 format=3 uid="uid://cpfbcdn3orr6f"]
 
-[ext_resource type="Shader" uid="uid://6c8mfs26gu2g" path="res://shader scripts/planet_stable.gdshader" id="2_bbf6g"]
-[ext_resource type="Texture2D" uid="uid://cah7sgalkhpkm" path="res://images/white-circle-free-png-3289399007.png" id="2_qjmsr"]
-[ext_resource type="Script" uid="uid://dt7ien17clcbn" path="res://scripts/planetwhite_stable.gd" id="2_sp06e"]
+[ext_resource type="Script" uid="uid://dt7ien17clcbn" path="res://scripts/planetwhite_stable.gd" id="1_5irjn"]
+[ext_resource type="Shader" uid="uid://dj7sqgfdwl688" path="res://shader scripts/Blackhole.gdshader" id="2_5irjn"]
+[ext_resource type="Texture2D" uid="uid://cah7sgalkhpkm" path="res://images/white-circle-free-png-3289399007.png" id="3_tumn4"]
+[ext_resource type="Script" path="res://scripts/Solarspriteparticles.gd" id="4_jrcmc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rxlhp"]
-shader = ExtResource("2_bbf6g")
+shader = ExtResource("2_5irjn")
 shader_parameter/core_color = Color(1, 0.8, 0.2, 1)
 shader_parameter/corona_color = Color(1, 0.5, 0.1, 1)
 shader_parameter/flare_color = Color(1, 0.2, 0.05, 1)
@@ -20,15 +21,16 @@ shader_parameter/glow_intensity = 2.0
 radius = 43.0116
 
 [node name="Planetwhite Stable" type="RigidBody2D" groups=["celestial_bodies"]]
-mass = 10000.0
+mass = 1e+08
 gravity_scale = 0.0
 freeze = true
-script = ExtResource("2_sp06e")
+script = ExtResource("1_5irjn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_rxlhp")
 scale = Vector2(0.0609375, 0.0609375)
-texture = ExtResource("2_qjmsr")
+texture = ExtResource("3_tumn4")
+script = ExtResource("4_jrcmc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mtr83")
@@ -36,4 +38,4 @@ shape = SubResource("CircleShape2D_mtr83")
 [node name="Highlight" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_rxlhp")
 scale = Vector2(0.0609375, 0.0609375)
-texture = ExtResource("2_qjmsr")
+texture = ExtResource("3_tumn4")

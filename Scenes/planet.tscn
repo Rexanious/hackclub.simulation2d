@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://uhsrlmdmgi1f"]
+[gd_scene load_steps=6 format=3 uid="uid://uhsrlmdmgi1f"]
 
 [ext_resource type="Script" uid="uid://15lj6aym025d" path="res://scripts/planet.gd" id="1_a75xc"]
 [ext_resource type="Texture2D" uid="uid://cah7sgalkhpkm" path="res://images/white-circle-free-png-3289399007.png" id="2_a75xc"]
+[ext_resource type="Shader" uid="uid://cn64draxo66j0" path="res://shader scripts/Highlight.gdshader" id="3_m0iey"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytj11"]
+shader = ExtResource("3_m0iey")
+shader_parameter/outline_color = Color(1, 0, 0, 1)
+shader_parameter/outline_width = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtr83"]
 radius = 43.0116
@@ -11,8 +17,16 @@ mass = 100000.0
 gravity_scale = 0.0
 custom_integrator = true
 contact_monitor = true
-linear_damp = -0.005
+linear_damp_mode = 1
+linear_damp = -0.01
 script = ExtResource("1_a75xc")
+
+[node name="Highlight" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_ytj11")
+position = Vector2(0.50001, -0.50001)
+scale = Vector2(0.114063, 0.114063)
+texture = ExtResource("2_a75xc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0609375, 0.0609375)
@@ -20,7 +34,3 @@ texture = ExtResource("2_a75xc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mtr83")
-
-[node name="Highlight" type="Sprite2D" parent="."]
-scale = Vector2(0.0609375, 0.0609375)
-texture = ExtResource("2_a75xc")

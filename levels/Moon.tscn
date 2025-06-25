@@ -1,0 +1,233 @@
+[gd_scene load_steps=13 format=3 uid="uid://crskxvajpil7q"]
+
+[ext_resource type="Script" uid="uid://bo5wwmeh4rpt4" path="res://scripts/main.gd" id="1_2dkel"]
+[ext_resource type="PackedScene" uid="uid://uhsrlmdmgi1f" path="res://Scenes/planet.tscn" id="2_xwdap"]
+[ext_resource type="PackedScene" uid="uid://dofoaiffkao7b" path="res://Scenes/planet_stable.tscn" id="3_7g8ys"]
+[ext_resource type="Shader" uid="uid://c4jrgct8f544w" path="res://shader scripts/Main.gdshader" id="4_s6nmo"]
+[ext_resource type="Script" uid="uid://c6lhpsbkl0f4k" path="res://scripts/camera_2d.gd" id="5_wp4lv"]
+[ext_resource type="Script" uid="uid://cwufalubmvw1f" path="res://scripts/control.gd" id="6_icc2x"]
+[ext_resource type="FontFile" uid="uid://pgrxfminbce7" path="res://fonts/Michroma-Regular.ttf" id="7_c1njr"]
+[ext_resource type="Texture2D" uid="uid://dq8wl7u0ad81l" path="res://images/Preview_arrow.png" id="8_w80qt"]
+[ext_resource type="AudioStream" uid="uid://v1w80vcpnmv5" path="res://audio/Clicksound.mp3" id="9_au0ix"]
+[ext_resource type="Theme" uid="uid://b56xl0oy04gl4" path="res://fonts/sandbox.tres" id="9_xwdap"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dxm6"]
+shader = ExtResource("4_s6nmo")
+
+[sub_resource type="Theme" id="Theme_jw32o"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+
+[node name="sandbox" type="Node2D"]
+script = ExtResource("1_2dkel")
+body_scene = ExtResource("2_xwdap")
+planet_stable_scene = ExtResource("3_7g8ys")
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+
+[node name="Starryanimation" type="ColorRect" parent="Background/Parallax2D"]
+material = SubResource("ShaderMaterial_3dxm6")
+offset_left = -34.0
+offset_top = -21.0
+offset_right = 1159.0
+offset_bottom = 659.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("5_wp4lv")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_icc2x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 25.0
+offset_right = 158.0
+offset_bottom = 138.0
+scale = Vector2(0.513301, 0.513301)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="PauseButton" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_jw32o")
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Pause"
+
+[node name="PlayButton" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="MassSlider" type="HSlider" parent="UI/Control/VBoxContainer"]
+layout_mode = 2
+min_value = 10.0
+max_value = 10000.0
+step = 500.0
+value = 10.0
+
+[node name="MassLabel" type="Label" parent="UI/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Mass: 10000"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Speed1x" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "1x"
+
+[node name="Speed2x" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "2x"
+
+[node name="Speed05x" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "0.5x"
+
+[node name="Speed50x" type="Button" parent="UI/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "50x"
+
+[node name="SpeedSlider" type="VSlider" parent="UI/Control"]
+layout_mode = 2
+offset_left = 132.0
+offset_top = 146.0
+offset_right = 148.0
+offset_bottom = 259.0
+rotation = 1.5708
+max_value = 1e+06
+step = 10.0
+
+[node name="DirectionSlider" type="VSlider" parent="UI/Control"]
+layout_mode = 0
+offset_left = 274.0
+offset_top = 145.0
+offset_right = 290.0
+offset_bottom = 259.0
+rotation = 1.5708
+max_value = 360.0
+
+[node name="SpeedLabel" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 164.0
+offset_right = 148.0
+offset_bottom = 210.0
+scale = Vector2(0.533869, 0.533869)
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Speed"
+
+[node name="DirectionLabel" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 164.0
+offset_right = 391.0
+offset_bottom = 210.0
+scale = Vector2(0.47718, 0.47718)
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Direction"
+
+[node name="PreviewArrow" type="Sprite2D" parent="UI/Control"]
+position = Vector2(221, 121)
+scale = Vector2(2.46875, 2.21769)
+texture = ExtResource("8_w80qt")
+
+[node name="DeleteButton" type="CheckButton" parent="UI/Control"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 195.0
+offset_right = 176.0
+offset_bottom = 226.0
+scale = Vector2(0.647262, 0.647262)
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 32
+text = "Delete mode"
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 668.0
+offset_top = 43.0
+offset_right = 1119.0
+offset_bottom = 229.0
+scale = Vector2(0.655982, 0.655982)
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 25
+text = "Mission: place a moon in orbit around the 
+already existing planet
+(Deletion is allowed, just have fun!)"
+
+[node name="Label" type="Label" parent="UI/Label"]
+layout_mode = 0
+offset_left = -987.831
+offset_top = 518.307
+offset_right = -283.831
+offset_bottom = 788.307
+scale = Vector2(0.789492, 0.789492)
+theme_override_fonts/font = ExtResource("7_c1njr")
+theme_override_font_sizes/font_size = 25
+text = "p.s.: a moon's orbit has to accomdate for BOTH
+the planet's gravitational force AND the sun's force.
+i.e: add the orbital velocity of the sun plus the planet (or minus) the planet
+depending on: if the moon is place between the sun and moon or on the dark
+side of the planet."
+
+[node name="Backbutton" type="Button" parent="UI"]
+offset_left = 4.0
+offset_top = 589.0
+offset_right = 126.0
+offset_bottom = 643.0
+theme = ExtResource("9_xwdap")
+text = "Back"
+
+[node name="Blackbackground" type="ColorRect" parent="."]
+offset_left = -72902.0
+offset_top = -68033.0
+offset_right = 55214.0
+offset_bottom = 34617.0
+color = Color(0, 0, 0, 1)
+
+[node name="Planetwhite Stable" parent="." instance=ExtResource("3_7g8ys")]
+position = Vector2(-2, 3)
+
+[node name="Planetwhite" parent="." instance=ExtResource("2_xwdap")]
+position = Vector2(0, 407)
+linear_velocity = Vector2(150, 0)
+
+[node name="Clicksound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_au0ix")
+
+[connection signal="pressed" from="UI/Backbutton" to="." method="_on_backbutton_pressed"]

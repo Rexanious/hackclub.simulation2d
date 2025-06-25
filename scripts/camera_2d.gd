@@ -7,8 +7,6 @@ func _input(InputEvent):
 	position += direction * speed
 
 func _unhandled_input(event):
-	# Pan camera with middle mouse
-	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom *= 0.9

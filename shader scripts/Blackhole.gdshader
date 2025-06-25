@@ -9,7 +9,7 @@ uniform float flare_speed = 1.0;
 uniform float rotation_speed = 0.3;
 
 uniform float distortion_strength = 0.2;
-uniform float flare_density = 5.0;
+uniform float flare_density = 10.0;
 uniform float glow_intensity = 2.0;
 
 float rand(vec2 coord) {
@@ -49,18 +49,19 @@ void fragment() {
     vec2 uv = UV - 0.5;
     float radius = length(uv) * 2.0;
     
+    // Create radial gradient
     float sun_core = smoothstep(0.7, 0.2, radius);
     float corona = smoothstep(0.2, 1.0, radius);
     
     float time = TIME * time_scale;
-    
-    vec2 distorted_uv = uv * (1.0 + distortion_strength * 
+
+    vec2 distorted_uv = uv * (3.0 + distortion_strength * 
         sin(radius * 10.0 + time * 0.5));
     
     float corona_pattern = fbm(distorted_uv * 5.0 + vec2(time * 0.3), 3);
     corona *= corona_pattern * glow_intensity;
-    
-    float flare_value = 0.002;
+
+    float flare_value = 2.4;
     
     float angle = time * rotation_speed;
     mat2 rotation = mat2(
@@ -69,20 +70,23 @@ void fragment() {
     );
     vec2 flare_uv = rotation * uv;
     
-    for (float i = 0.0; i < 8.0; i++) {
+    for (float i = 0.0; i < 10.0; i++) {
         float flare_angle = (i / 8.0) * 3.141592 * 2.0;
         vec2 flare_dir = vec2(cos(flare_angle), sin(flare_angle));
         
+        // Randomize flare properties
         float seed = i * 10.0;
         float flare_size = 0.005 + 0.1 * rand(vec2(seed, seed));
         float flare_length = 0.05 + rand(vec2(seed + 1.0, seed + 1.0));
         float flare_speed_mod = 1.0 + rand(vec2(seed + 2.0, seed + 2.0)) * 2.0;
         
+        // Calculate flare position
         float flare_pos = dot(flare_uv, flare_dir);
         float flare_time = time * flare_speed * flare_speed_mod;
         float flare_wave = sin(flare_pos * flare_density - flare_time);
         
-        float flare = smoothstep(0.7, 0.0, abs(flare_pos)) * 
+        // Create flare shape
+        float flare = smoothstep(1.2, 0.0, abs(flare_pos)) * 
                      smoothstep(0.0, flare_length, 1.0 - radius) * 
                      max(0.0, flare_wave);
         
@@ -97,11 +101,10 @@ void fragment() {
     
     color += flare_color.rgb * flare_value * (4.0 - sun_core);
     
-    float glow = smoothstep(0.1, 1.5, radius);
+    float glow = smoothstep(0.001, 1.5, radius);
     color = mix(color, flare_color.rgb, glow * 0.3);
-
+    
     float alpha_mask = 1.0 - smoothstep(0.67, 1.0, radius);
     
-
     COLOR = vec4(color, alpha_mask * max(sun_core, max(corona, flare_value)));
 }

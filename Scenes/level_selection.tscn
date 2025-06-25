@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://vl61ospceuqr"]
+
+[ext_resource type="Script" uid="uid://dvlp5pogmmgd7" path="res://scripts/level_selection.gd" id="1_1m0xv"]
+[ext_resource type="FontFile" uid="uid://pgrxfminbce7" path="res://fonts/Michroma-Regular.ttf" id="2_bhq3g"]
+[ext_resource type="Theme" uid="uid://b56xl0oy04gl4" path="res://fonts/sandbox.tres" id="3_j13lr"]
+[ext_resource type="AudioStream" uid="uid://v1w80vcpnmv5" path="res://audio/Clicksound.mp3" id="4_6dews"]
+
+[node name="level_selection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1m0xv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = -7.0
+offset_top = -90.0
+offset_right = 1167.0
+offset_bottom = 990.0
+color = Color(0, 0, 0, 1)
+
+[node name="Tutorialbutton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 406.0
+offset_top = 212.0
+offset_right = 718.0
+offset_bottom = 266.0
+theme_override_fonts/font = ExtResource("2_bhq3g")
+theme_override_font_sizes/font_size = 32
+text = "Tutorial"
+
+[node name="Moonbutton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 406.0
+offset_top = 286.0
+offset_right = 718.0
+offset_bottom = 340.0
+theme_override_fonts/font = ExtResource("2_bhq3g")
+theme_override_font_sizes/font_size = 32
+text = "Moon  creator"
+
+[node name="Starbutton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 406.0
+offset_top = 360.0
+offset_right = 718.0
+offset_bottom = 414.0
+theme_override_fonts/font = ExtResource("2_bhq3g")
+theme_override_font_sizes/font_size = 32
+text = "Star Navigator"
+
+[node name="Blackholebutton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 406.0
+offset_top = 434.0
+offset_right = 718.0
+offset_bottom = 480.0
+theme = ExtResource("3_j13lr")
+theme_override_fonts/font = ExtResource("2_bhq3g")
+theme_override_font_sizes/font_size = 32
+text = "Blackhole...?"
+
+[node name="Clicksound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6dews")
+
+[node name="Backbutton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 552.0
+offset_right = 154.0
+offset_bottom = 617.0
+theme = ExtResource("3_j13lr")
+text = "Back"
+
+[connection signal="pressed" from="Tutorialbutton" to="." method="_on_tutorialbutton_pressed"]
+[connection signal="pressed" from="Moonbutton" to="." method="_on_moonbutton_pressed"]
+[connection signal="pressed" from="Starbutton" to="." method="_on_starbutton_pressed"]
+[connection signal="pressed" from="Blackholebutton" to="." method="_on_blackholebutton_pressed"]
+[connection signal="pressed" from="Backbutton" to="." method="_on_backbutton_pressed"]

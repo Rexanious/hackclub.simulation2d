@@ -16,7 +16,6 @@ extends Control
 @onready var direction_label = $DirectionLabel
 @onready var speed_label = $SpeedLabel
 @onready var preview_arrow = $PreviewArrow
-@onready var Volume_label = $Volume_label
 
 var velocity_vector := Vector2.ZERO
 
@@ -47,7 +46,6 @@ func _ready():
 	speed_slider.value_changed.connect(update_velocity)
 	
 	update_velocity(0)
-	
 
 func _on_pause_pressed():
 	Engine.time_scale = 0.0
@@ -57,12 +55,7 @@ func _on_play_pressed():
 
 func _on_mass_changed(value: float):
 	mass_label.text = "Mass: %d" % value
-	get_node("/root/Main").default_mass = value
-
-func _on_volume_changed(value: float):
-	Volume_label.text = "volume: %d" % value
-	get_node("/planet/sprite2D").default_volume = value
-	get_node("/planet/Collisionshape2D").default_volume = value
+	get_node("/root/sandbox").default_mass = value
 
 func _on_speed_1x_pressed():
 	Engine.time_scale = 1.0
