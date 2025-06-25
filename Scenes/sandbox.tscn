@@ -132,9 +132,9 @@ text = "Speed"
 
 [node name="DirectionLabel" type="Label" parent="UI/Control"]
 layout_mode = 0
-offset_left = 176.0
+offset_left = 206.0
 offset_top = 164.0
-offset_right = 359.0
+offset_right = 389.0
 offset_bottom = 210.0
 scale = Vector2(0.55713, 0.55713)
 theme = ExtResource("7_j2wlq")
