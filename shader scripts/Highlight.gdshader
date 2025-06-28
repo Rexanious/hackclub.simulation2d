@@ -6,7 +6,7 @@ uniform float outline_width : hint_range(0, 10) = 2.0;
 void fragment() {
 	vec2 uv = UV;
 	vec4 tex = texture(TEXTURE, uv);
-    
+
 	if (tex.a < 0.5) {
 		float max_alpha = 0.0;
 		for (float x = -outline_width; x <= outline_width; x += 1.0) {
@@ -20,6 +20,6 @@ void fragment() {
 			discard;
         }
     }
-    
+
     COLOR = tex;
 }
