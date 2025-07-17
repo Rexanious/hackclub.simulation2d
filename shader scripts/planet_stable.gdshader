@@ -12,6 +12,7 @@ uniform float distortion_strength = 0.2;
 uniform float flare_density = 5.0;
 uniform float glow_intensity = 2.0;
 
+
 float rand(vec2 coord) {
     return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453);
 }
@@ -55,7 +56,7 @@ void fragment() {
     float time = TIME * time_scale;
 
     vec2 distorted_uv = uv * (1.0 + distortion_strength *
-        sin(radius * 10.0 + time * 0.5));
+        sin(radius * 10.0 + time * 0.5 ));
 
     float corona_pattern = fbm(distorted_uv * 5.0 + vec2(time * 0.3), 3);
     corona *= corona_pattern * glow_intensity;

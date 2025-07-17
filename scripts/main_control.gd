@@ -42,3 +42,7 @@ func _input(event):
 
 func _on_github_pressed() -> void:
 	OS.shell_open("https://github.com/Rexanious/hackclub.simulation2d")
+
+
+func _on_itch_pressed() -> void:
+	OS.shell_open("https://rexanious.itch.io/solarbox")

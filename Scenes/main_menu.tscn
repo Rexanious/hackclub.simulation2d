@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7cp1xgv63ikt"]
+[gd_scene load_steps=13 format=3 uid="uid://b7cp1xgv63ikt"]
 
 [ext_resource type="Script" uid="uid://cnlp2qgri2cfd" path="res://scripts/main_control.gd" id="1_28flt"]
 [ext_resource type="Shader" uid="uid://c4jrgct8f544w" path="res://shader scripts/Main.gdshader" id="2_1ehe0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://uhsrlmdmgi1f" path="res://Scenes/planet.tscn" id="5_opfnp"]
 [ext_resource type="FontFile" uid="uid://pgrxfminbce7" path="res://fonts/Michroma-Regular.ttf" id="6_opfnp"]
 [ext_resource type="Texture2D" uid="uid://dp1pcswfiqnm8" path="res://images/Screenshot 2025-06-25 235001.png" id="7_cp0ys"]
+[ext_resource type="Texture2D" uid="uid://kmdgjyg7tm4w" path="res://images/itchpng.png" id="8_yhxw7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ce3w2"]
 shader = ExtResource("2_1ehe0")
@@ -18,6 +19,10 @@ font_size = 528
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhxw7"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trj04"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 1, 1, 1)
 
 [node name="main_menu" type="CanvasLayer"]
 
@@ -110,4 +115,20 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_yhxw7")
 text = "Github"
 icon = ExtResource("7_cp0ys")
 
+[node name="Itch" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 888.0
+offset_top = 506.0
+offset_right = 1116.0
+offset_bottom = 552.0
+theme_override_colors/icon_focus_color = Color(0.967671, 0.967671, 0.967671, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_opfnp")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_trj04")
+text = "itch"
+icon = ExtResource("8_yhxw7")
+
 [connection signal="pressed" from="Control/Github" to="Control" method="_on_github_pressed"]
+[connection signal="pressed" from="Control/Itch" to="Control" method="_on_itch_pressed"]
